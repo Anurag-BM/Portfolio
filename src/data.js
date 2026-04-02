@@ -1,14 +1,3 @@
-
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Portfolio from './Portfolio'
-
-ReactDOM.createRoot(document.getElementById('root')).render(<Portfolio />)
-[9:48 pm, 2/4/2026] Anurag 🐒: Src- data.js 
-
-src
-data.js - edit this to update my info
-
 // ============================================================
 // ✏️  PORTFOLIO DATA — Edit this file to update your portfolio
 //     Change any text, add new items, update links etc.
