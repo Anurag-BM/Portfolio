@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import {
   PROFILE, HERO, STATS, ABOUT, EXPERIENCE, ACHIEVEMENTS,
-  EDUCATION, SKILLS, TERMINAL_LINES} from "./data";
-import { ARTICLES } from "./data";
+  EDUCATION, SKILLS, TERMINAL_LINES, ARTICLES} from "./data";
 
 const NAV = ["About", "Experience", "Articles", "Skills", "Contact"];
 const accent = "#d4896a";
