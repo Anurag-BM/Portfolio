@@ -1,18 +1,122 @@
 import { useState, useEffect, useRef } from "react";
 import {
   PROFILE, HERO, STATS, ABOUT, EXPERIENCE, ACHIEVEMENTS,
-  EDUCATION, SKILLS, TERMINAL_LINES
+  EDUCATION, SKILLS, TERMINAL_LINES, ARTICLES
 } from "./data";
 
-const NAV = ["About", "Experience", "Skills", "Contact"];
+const NAV = ["About", "Experience", "Articles", "Skills", "Contact"];
 const accent = "#d4896a";
 const green = "#7daa6e";
+const cyan = "#5bb8d4";
 
 function Terminal() {
   const [v, setV] = useState(0);
   useEffect(() => {
     const ts = TERMINAL_LINES.map((l, i) => setTimeout(() => setV(i + 1), l.delay + 500));
-    return () => ts.forEach(clearTimeout);
+    // Rich article renderer
+  const renderSection = (item, i) => {
+    if (item.type === "p") return <p key={i} style={{ color: mt, fontSize: 14.5, lineHeight: 1.85, margin: "8px 0" }}>{item.text}</p>;
+    if (item.type === "h3") return <h3 key={i} style={{ fontSize: 17, fontWeight: 700, margin: "28px 0 12px", color: tx }}>{item.text}</h3>;
+    if (item.type === "bullet") return <div key={i} style={{ paddingLeft: 16, position: "relative", marginBottom: 7, color: mt, fontSize: 14, lineHeight: 1.75 }}><span style={{ position: "absolute", left: 0, color: cyan }}>•</span>{item.text}</div>;
+    if (item.type === "bullet-bold") return <div key={i} style={{ paddingLeft: 16, position: "relative", marginBottom: 7, color: mt, fontSize: 14, lineHeight: 1.75 }}><span style={{ position: "absolute", left: 0, color: cyan }}>•</span><strong style={{ color: tx }}>{item.bold}</strong>{item.text}</div>;
+    if (item.type === "numbered") return (
+      <div key={i} style={{ display: "flex", gap: 16, margin: "16px 0" }}>
+        <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(212,137,106,0.12)", border: "1px solid rgba(212,137,106,0.25)", display: "flex", alignItems: "center", justifyContent: "center", color: accent, fontSize: 14, fontWeight: 700, flexShrink: 0 }}>{item.num}</div>
+        <div><strong style={{ color: tx, fontSize: 15 }}>{item.title}</strong><p style={{ color: mt, fontSize: 14, lineHeight: 1.75, marginTop: 4 }}>{item.text}</p></div>
+      </div>
+    );
+    if (item.type === "insight") return (
+      <div key={i} style={{ background: "rgba(91,184,212,0.08)", border: "1px solid rgba(91,184,212,0.2)", borderRadius: 12, padding: "16px 20px", margin: "20px 0", fontSize: 14, lineHeight: 1.75, color: mt }}>
+        <span style={{ color: cyan, fontWeight: 700, fontSize: 12, textTransform: "uppercase", letterSpacing: 1 }}>💡 Key Insight</span>
+        <div style={{ marginTop: 8 }}>{item.text}</div>
+      </div>
+    );
+    if (item.type === "quote") return <div key={i} style={{ borderLeft: `3px solid ${accent}`, paddingLeft: 20, margin: "20px 0", fontStyle: "italic", color: "rgba(255,255,255,0.6)", fontSize: 14.5, lineHeight: 1.8 }}>{item.text}</div>;
+    if (item.type === "table") return (
+      <div key={i} style={{ overflowX: "auto", margin: "16px 0" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+          <thead><tr>{item.headers.map((h, hi) => <th key={hi} style={{ padding: "10px 14px", borderBottom: `2px solid ${bd}`, textAlign: "left", color: cyan, fontWeight: 600, fontSize: 11, textTransform: "uppercase", letterSpacing: 1 }}>{h}</th>)}</tr></thead>
+          <tbody>{item.rows.map((r, ri) => <tr key={ri}>{r.map((c, ci) => <td key={ci} style={{ padding: "10px 14px", borderBottom: `1px solid ${bd}`, color: ci === r.length - 1 ? accent : mt, fontWeight: ci === r.length - 1 ? 600 : 400 }}>{c}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
+    );
+    if (item.type === "stats") return (
+      <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, margin: "16px 0" }}>
+        {item.items.map(([v, l], si) => <div key={si} style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${bd}`, borderRadius: 12, padding: "16px 18px" }}><div style={{ fontSize: 24, fontWeight: 800, color: accent }}>{v}</div><div style={{ color: mt, fontSize: 13, marginTop: 4 }}>{l}</div></div>)}
+      </div>
+    );
+    if (item.type === "closing") return <p key={i} style={{ fontStyle: "italic", color: accent, fontSize: 15, textAlign: "center", margin: "24px 0" }}>{item.text}</p>;
+    return null;
+  };
+
+  // ARTICLE FULL VIEW
+  if (articleView) {
+    const article = ARTICLES.find(a => a.id === articleView);
+    return (
+      <div style={{ background: bg, color: tx, minHeight: "100vh", fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}>
+        <style>{css}</style>
+        <nav style={{ position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", background: dk ? "rgba(12,12,19,0.9)" : "rgba(245,243,239,0.9)", borderBottom: `1px solid ${bd}`, padding: "0 24px" }}>
+          <div style={{ maxWidth: 1060, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 58 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: `linear-gradient(135deg,${accent},#8b5e3c)`, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: 13 }}>A</div>
+              <span style={{ fontWeight: 600, fontSize: 15 }}>Anurag B M</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <span style={{ color: mt, fontSize: 13 }}>~ {article.readTime.toUpperCase()}</span>
+              <button onClick={() => setArticleView(null)} style={{ background: "transparent", border: `1px solid ${bd}`, color: tx, padding: "6px 16px", borderRadius: 22, cursor: "pointer", fontSize: 13.5, fontWeight: 500 }}>← Back</button>
+              <button onClick={() => setDk(!dk)} style={{ background: "transparent", border: `1px solid ${bd}`, borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: tx, fontSize: 15, display: "flex", alignItems: "center", justifyContent: "center" }}>{dk ? "☀️" : "🌙"}</button>
+            </div>
+          </div>
+        </nav>
+        <div style={{ maxWidth: 1060, margin: "0 auto", padding: "48px 24px 80px", display: "grid", gridTemplateColumns: "1fr 260px", gap: 48 }}>
+          <article>
+            <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>{article.tags.slice(0, 3).map(t => <Tag key={t} a dk={dk}>{t}</Tag>)}</div>
+            <h1 style={{ fontSize: "clamp(28px,4vw,42px)", fontWeight: 800, lineHeight: 1.15, margin: "0 0 16px" }}>{article.title}</h1>
+            <p style={{ color: mt, fontSize: 16, lineHeight: 1.7, margin: "0 0 32px" }}>{article.subtitle}</p>
+            <hr style={{ border: "none", borderTop: `1px solid ${bd}`, margin: "0 0 8px" }} />
+            {article.sections.map((sec, si) => (
+              <div key={si}>
+                <div id={`sec-${si}`} style={{ display: "flex", alignItems: "center", gap: 14, margin: "48px 0 20px" }}>
+                  <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(91,184,212,0.12)", border: "1px solid rgba(91,184,212,0.25)", display: "flex", alignItems: "center", justifyContent: "center", color: cyan, fontSize: 14, fontWeight: 700, flexShrink: 0 }}>{sec.num}</div>
+                  <h2 style={{ fontSize: 22, fontWeight: 700, color: tx, margin: 0 }}>{sec.title}</h2>
+                </div>
+                {sec.content.map((item, ii) => renderSection(item, `${si}-${ii}`))}
+              </div>
+            ))}
+            <hr style={{ border: "none", borderTop: `1px solid ${bd}`, margin: "36px 0" }} />
+            <div style={{ background: "linear-gradient(135deg, rgba(212,137,106,0.15), rgba(91,184,212,0.15))", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "32px 28px", textAlign: "center" }}>
+              <h3 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 10px" }}>Enjoyed this article?</h3>
+              <p style={{ color: mt, fontSize: 14, margin: "0 0 20px" }}>Connect with me for more on AI testing, automation frameworks, and QA best practices.</p>
+              <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+                <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(255,255,255,0.1)", border: `1px solid ${bd}`, color: tx, padding: "10px 22px", borderRadius: 10, textDecoration: "none", fontWeight: 600, fontSize: 14, display: "inline-block" }}>🔗 Connect on LinkedIn</a>
+                <a href={`mailto:${PROFILE.email}`} style={{ background: "rgba(255,255,255,0.1)", border: `1px solid ${bd}`, color: tx, padding: "10px 22px", borderRadius: 10, textDecoration: "none", fontWeight: 600, fontSize: 14, display: "inline-block" }}>✉️ Mail</a>
+                <a href={`tel:${PROFILE.phone}`} style={{ background: "rgba(255,255,255,0.1)", border: `1px solid ${bd}`, color: tx, padding: "10px 22px", borderRadius: 10, textDecoration: "none", fontWeight: 600, fontSize: 14, display: "inline-block" }}>📞 {PROFILE.phone}</a>
+              </div>
+            </div>
+            <div style={{ borderTop: `1px solid ${bd}`, marginTop: 36, paddingTop: 20, display: "flex", alignItems: "center", gap: 14 }}>
+              <img src={PROFILE.photo} alt={PROFILE.name} style={{ width: 46, height: 46, borderRadius: "50%", objectFit: "cover" }} />
+              <div><div style={{ fontWeight: 600, fontSize: 14 }}>{PROFILE.name}</div><div style={{ color: mt, fontSize: 13 }}>{PROFILE.title} • <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" style={{ color: accent, textDecoration: "none" }}>LinkedIn</a></div></div>
+            </div>
+          </article>
+          <aside style={{ position: "sticky", top: 80, alignSelf: "start" }}>
+            <div style={{ background: card, border: `1px solid ${bd}`, borderRadius: 14, padding: 20 }}>
+              <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: mt, marginBottom: 14 }}>On This Page</div>
+              {article.sections.map((sec, si) => (
+                <div key={si} style={{ padding: "8px 0 8px 14px", borderLeft: `2px solid transparent`, cursor: "pointer", color: mt, fontSize: 13, transition: "all 0.2s" }}
+                  onMouseEnter={e => { e.currentTarget.style.color = cyan; e.currentTarget.style.borderLeftColor = cyan; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = mt; e.currentTarget.style.borderLeftColor = "transparent"; }}
+                  onClick={() => document.getElementById(`sec-${si}`)?.scrollIntoView({ behavior: "smooth" })}>
+                  {sec.num}. {sec.title}
+                </div>
+              ))}
+            </div>
+          </aside>
+        </div>
+      </div>
+    );
+  }
+
+  return () => ts.forEach(clearTimeout);
   }, []);
   return (
     <div style={{ background: "#141420", borderRadius: 14, overflow: "hidden", fontFamily: "'SF Mono','Fira Code','Courier New', monospace", fontSize: 13, height: "100%", border: "1px solid rgba(255,255,255,0.06)", minHeight: 200 }}>
@@ -52,6 +156,7 @@ const SLabel = ({ children }) => (
 export default function Portfolio() {
   const [nav, setNav] = useState("");
   const [dk, setDk] = useState(true);
+  const [articleView, setArticleView] = useState(null);
   const refs = useRef({});
 
   const bg = dk ? "#0c0c13" : "#f5f3ef";
@@ -203,6 +308,36 @@ export default function Portfolio() {
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6, paddingTop: 14, borderTop: `1px solid ${bd}` }}>
                     {e.tags.map((t) => <Tag key={t} dk={dk}>{t}</Tag>)}
                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ARTICLES */}
+        <section id="Articles" ref={sr("Articles")} style={{ padding: "80px 0" }}>
+          <div style={{ textAlign: "center" }}>
+            <SLabel>Publications</SLabel>
+            <h2 style={{ fontSize: 34, fontWeight: 700, margin: "0 0 8px" }}>Articles</h2>
+            <p style={{ color: mt, marginBottom: 48, fontSize: 15 }}>Sharing what I've learned about testing AI systems</p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {ARTICLES.map((a) => (
+              <div key={a.id} onClick={() => setArticleView(a.id)} style={{ background: card, border: `1px solid ${bd}`, borderRadius: 16, padding: 28, cursor: "pointer", borderLeft: `3px solid ${accent}`, transition: "border-color 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = accent}
+                onMouseLeave={e => e.currentTarget.style.borderColor = bd}>
+                <div style={{ display: "flex", gap: 12, color: mt, fontSize: 13, marginBottom: 14 }}><span>📅 {a.date}</span><span>⏱️ {a.readTime}</span></div>
+                <h3 style={{ margin: "0 0 6px", fontSize: 22, fontWeight: 700 }}>{a.title}</h3>
+                <p style={{ color: accent, fontSize: 14.5, fontWeight: 500, margin: "0 0 18px" }}>{a.subtitle}</p>
+                {a.summaryIntro.map((p, i) => <p key={i} style={{ color: mt, fontSize: 14, lineHeight: 1.8, margin: "0 0 8px" }}>{p}</p>)}
+                <p style={{ color: tx, fontSize: 14, lineHeight: 1.8, margin: "14px 0 10px", fontWeight: 600 }}>{a.summaryHeading}</p>
+                <div style={{ marginBottom: 14 }}>
+                  {a.summaryBullets.map((b, i) => <div key={i} style={{ paddingLeft: 16, position: "relative", marginBottom: 6, color: mt, fontSize: 13.5, lineHeight: 1.75 }}><span style={{ position: "absolute", left: 0, color: accent, fontWeight: 700 }}>•</span>{b}</div>)}
+                </div>
+                <p style={{ color: accent, fontSize: 14, fontWeight: 600, fontStyle: "italic", margin: "0 0 16px" }}>{a.summaryClosing}</p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>{a.tags.map(t => <Tag key={t} dk={dk}>{t}</Tag>)}</div>
+                  <span style={{ color: accent, fontSize: 14, fontWeight: 600 }}>Read Article →</span>
                 </div>
               </div>
             ))}
