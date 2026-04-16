@@ -1,7 +1,5 @@
 // ============================================================
-// ✏️  PORTFOLIO DATA — Edit this file to update your portfolio
-//     Change any text, add new items, update links etc.
-//     After saving, Vercel will auto-deploy the changes.
+// PORTFOLIO DATA — Edit this file to update your portfolio
 // ============================================================
 
 export const PROFILE = {
@@ -11,7 +9,6 @@ export const PROFILE = {
   email: "anuragmahanthesh69@gmail.com",
   phone: "+91 9035790994",
   linkedin: "https://www.linkedin.com/in/anuragbm/",
-  // github: "https://github.com/yourusername",  // Uncomment and add when ready
 };
 
 export const HERO = {
