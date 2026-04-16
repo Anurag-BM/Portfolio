@@ -131,74 +131,8 @@ export default function Portfolio() {
 
   // ==================== ARTICLE VIEW ====================
   if (openArticle) {
-    var article = ARTICLES.find(function(a) { return a.id === openArticle; });
-    if (!article) { setOpenArticle(null); return null; }
-    return (
-      <div style={{ background: bg, color: tx, minHeight: "100vh", fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}>
-        <style>{CSS}</style>
-        <nav style={{ position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", background: dk ? "rgba(12,12,19,0.9)" : "rgba(245,243,239,0.9)", borderBottom: "1px solid " + bd, padding: "0 24px" }}>
-          <div style={{ maxWidth: 1060, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 58 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg," + accent + ",#8b5e3c)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: 13 }}>A</div>
-              <span style={{ fontWeight: 600, fontSize: 15 }}>Anurag B M</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <span style={{ color: mt, fontSize: 13 }}>~ {article.readTime.toUpperCase()}</span>
-              <button onClick={function() { setOpenArticle(null); }} style={{ background: "transparent", border: "1px solid " + bd, color: tx, padding: "6px 16px", borderRadius: 22, cursor: "pointer", fontSize: 13.5, fontWeight: 500 }}>← Back</button>
-              <button onClick={function() { setDk(!dk); }} style={{ background: "transparent", border: "1px solid " + bd, borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: tx, fontSize: 15, display: "flex", alignItems: "center", justifyContent: "center" }}>{dk ? "☀️" : "🌙"}</button>
-            </div>
-          </div>
-        </nav>
-        <div style={{ maxWidth: 1060, margin: "0 auto", padding: "48px 24px 80px" }} className="article-layout">
-          <article>
-            <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>{article.tags.slice(0, 3).map(function(t) { return <Tag key={t} a dk={dk}>{t}</Tag>; })}</div>
-            <h1 style={{ fontSize: "clamp(28px,4vw,42px)", fontWeight: 800, lineHeight: 1.15, margin: "0 0 16px" }}>{article.title}</h1>
-            <p style={{ color: mt, fontSize: 16, lineHeight: 1.7, margin: "0 0 32px" }}>{article.subtitle}</p>
-            <hr style={{ border: "none", borderTop: "1px solid " + bd, margin: "0 0 8px" }} />
-            {article.sections.map(function(sec, si) {
-              return (
-                <div key={si}>
-                  <div id={"sec-" + si} style={{ display: "flex", alignItems: "center", gap: 14, margin: "48px 0 20px" }}>
-                    <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(91,184,212,0.12)", border: "1px solid rgba(91,184,212,0.25)", display: "flex", alignItems: "center", justifyContent: "center", color: cyan, fontSize: 14, fontWeight: 700, flexShrink: 0 }}>{sec.num}</div>
-                    <h2 style={{ fontSize: 22, fontWeight: 700, color: tx, margin: 0 }}>{sec.title}</h2>
-                  </div>
-                  {sec.content.map(function(item, ii) { return renderItem(item, si + "-" + ii); })}
-                </div>
-              );
-            })}
-            <hr style={{ border: "none", borderTop: "1px solid " + bd, margin: "36px 0" }} />
-            <div style={{ background: "linear-gradient(135deg, rgba(212,137,106,0.15), rgba(91,184,212,0.15))", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "32px 28px", textAlign: "center" }}>
-              <h3 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 10px" }}>Enjoyed this article?</h3>
-              <p style={{ color: mt, fontSize: 14, margin: "0 0 20px" }}>Connect with me for more on AI testing, automation frameworks, and QA best practices.</p>
-              <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-                <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" style={{ background: "rgba(255,255,255,0.1)", border: "1px solid " + bd, color: tx, padding: "10px 22px", borderRadius: 10, textDecoration: "none", fontWeight: 600, fontSize: 14 }}>🔗 Connect on LinkedIn</a>
-                <a href={"mailto:" + PROFILE.email} style={{ background: "rgba(255,255,255,0.1)", border: "1px solid " + bd, color: tx, padding: "10px 22px", borderRadius: 10, textDecoration: "none", fontWeight: 600, fontSize: 14 }}>✉️ Mail</a>
-                <a href={"tel:" + PROFILE.phone} style={{ background: "rgba(255,255,255,0.1)", border: "1px solid " + bd, color: tx, padding: "10px 22px", borderRadius: 10, textDecoration: "none", fontWeight: 600, fontSize: 14 }}>📞 {PROFILE.phone}</a>
-              </div>
-            </div>
-            <div style={{ borderTop: "1px solid " + bd, marginTop: 36, paddingTop: 20, display: "flex", alignItems: "center", gap: 14 }}>
-              <img src={PROFILE.photo} alt={PROFILE.name} style={{ width: 46, height: 46, borderRadius: "50%", objectFit: "cover" }} />
-              <div><div style={{ fontWeight: 600, fontSize: 14 }}>{PROFILE.name}</div><div style={{ color: mt, fontSize: 13 }}>{PROFILE.title} • <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" style={{ color: accent, textDecoration: "none" }}>LinkedIn</a></div></div>
-            </div>
-          </article>
-          <aside className="article-sidebar" style={{ position: "sticky", top: 80, alignSelf: "start" }}>
-            <div style={{ background: card, border: "1px solid " + bd, borderRadius: 14, padding: 20 }}>
-              <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: mt, marginBottom: 14 }}>On This Page</div>
-              {article.sections.map(function(sec, si) {
-                return (
-                  <div key={si} style={{ padding: "8px 0 8px 14px", borderLeft: "2px solid transparent", cursor: "pointer", color: mt, fontSize: 13, transition: "all 0.2s" }}
-                    onMouseEnter={function(e) { e.currentTarget.style.color = cyan; e.currentTarget.style.borderLeftColor = cyan; }}
-                    onMouseLeave={function(e) { e.currentTarget.style.color = mt; e.currentTarget.style.borderLeftColor = "transparent"; }}
-                    onClick={function() { var el = document.getElementById("sec-" + si); if (el) el.scrollIntoView({ behavior: "smooth" }); }}>
-                    {sec.num}. {sec.title}
-                  </div>
-                );
-              })}
-            </div>
-          </aside>
-        </div>
-      </div>
-    );
+    // This is no longer used — articles open in a new tab via /article/:id
+    setOpenArticle(null);
   }
 
   // ==================== MAIN PORTFOLIO ====================
@@ -295,7 +229,7 @@ export default function Portfolio() {
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {ARTICLES.map(function(a) {
               return (
-                <div key={a.id} onClick={function() { setOpenArticle(a.id); window.scrollTo(0, 0); }} style={{ background: card, border: "1px solid " + bd, borderRadius: 16, padding: 28, cursor: "pointer", borderLeft: "3px solid " + accent, transition: "border-color 0.2s" }}>
+                <div key={a.id} onClick={function() { window.open("/article/" + a.id, "_blank"); }} style={{ background: card, border: "1px solid " + bd, borderRadius: 16, padding: 28, cursor: "pointer", borderLeft: "3px solid " + accent, transition: "border-color 0.2s" }}>
                   <div style={{ display: "flex", gap: 12, color: mt, fontSize: 13, marginBottom: 14 }}><span>📅 {a.date}</span><span>⏱️ {a.readTime}</span></div>
                   <h3 style={{ margin: "0 0 6px", fontSize: 22, fontWeight: 700 }}>{a.title}</h3>
                   <p style={{ color: accent, fontSize: 14.5, fontWeight: 500, margin: "0 0 18px" }}>{a.subtitle}</p>
