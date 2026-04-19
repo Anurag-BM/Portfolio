@@ -94,7 +94,6 @@ export default function ArticlePage() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <span style={{ color: mt, fontSize: 13 }}>~ {article.readTime.toUpperCase()}</span>
-            <Link to="/" style={{ background: "transparent", border: "1px solid " + bd, color: tx, padding: "6px 16px", borderRadius: 22, textDecoration: "none", fontSize: 13.5, fontWeight: 500 }}>← Back to Portfolio</Link>
             <button onClick={function() { setDk(!dk); }} style={{ background: "transparent", border: "1px solid " + bd, borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: tx, fontSize: 15, display: "flex", alignItems: "center", justifyContent: "center" }}>{dk ? "☀️" : "🌙"}</button>
           </div>
         </div>
