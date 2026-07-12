@@ -5,7 +5,7 @@
 export const PROFILE = {
   name: "Anurag B M",
   title: "Senior SDET",
-  photo: "https://i.postimg.cc/0y34X3V7/A83FDC90-C0C5-4B54-B9F4-EA84628640D3.jpg",
+  photo: "https://i.postimg.cc/xCXsgB4K/IMG-6344.jpg",
   email: "anuragmahanthesh69@gmail.com",
   phone: "+91 9035790994",
   linkedin: "https://www.linkedin.com/in/anuragbm/",
