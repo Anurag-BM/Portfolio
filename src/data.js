@@ -18,7 +18,7 @@ export const HERO = {
 };
 
 export const STATS = [
-  { icon: "🛡️", val: "4.5+", label: "Years in QA", color: "rgba(212,137,106,0.15)", border: "rgba(212,137,106,0.3)" },
+  { icon: "🛡️", val: "5+", label: "Years in QA", color: "rgba(212,137,106,0.15)", border: "rgba(212,137,106,0.3)" },
   { icon: "✅", val: "1000+", label: "Test Cases Automated", color: "rgba(74,222,128,0.12)", border: "rgba(74,222,128,0.25)" },
   { icon: "📱", val: "10+", label: "Products Shipped", color: "rgba(251,191,36,0.12)", border: "rgba(251,191,36,0.25)" },
 ];
@@ -63,7 +63,7 @@ export const EXPERIENCE = [
     title: "QA Engineer",
     company: "PowerSchool",
     url: "https://www.powerschool.com",
-    period: "Aug 2021 - Nov 2025",
+    period: "Aug 2021 - Dec 2025",
     location: "Bengaluru, India",
     description: "Delivered quality across multiple education technology products powering K-12 education in North America. Promoted twice — from Associate QA Engineer 1 to Associate QA Engineer 2, and then to QA Engineer — in recognition of technical leadership and impact. Projects: Data Science – AI Chatbots, LearningNav – ContentNav, Efinanceplus.",
     bullets: [
