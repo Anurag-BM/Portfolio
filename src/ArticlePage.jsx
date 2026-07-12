@@ -101,25 +101,25 @@ export default function ArticlePage() {
   }
 
   function renderItem(item, key) {
-    if (item.type === "p") return <p key={key} style={{ color: mt, fontSize: 14.5, lineHeight: 1.85, margin: "8px 0" }}>{item.text}</p>;
-    if (item.type === "h3") return <h3 key={key} style={{ fontSize: 17, fontWeight: 700, margin: "28px 0 12px", color: tx }}>{item.text}</h3>;
-    if (item.type === "bullet") return <div key={key} style={{ paddingLeft: 16, position: "relative", marginBottom: 7, color: mt, fontSize: 14, lineHeight: 1.75 }}><span style={{ position: "absolute", left: 0, color: cyan }}>•</span>{item.text}</div>;
-    if (item.type === "bullet-bold") return <div key={key} style={{ paddingLeft: 16, position: "relative", marginBottom: 7, color: mt, fontSize: 14, lineHeight: 1.75 }}><span style={{ position: "absolute", left: 0, color: cyan }}>•</span><strong style={{ color: tx }}>{item.bold}</strong>{item.text}</div>;
+    if (item.type === "p") return <p key={key} className="article-p" style={{ color: mt, fontSize: 14.5, lineHeight: 1.85, margin: "8px 0", overflowWrap: "break-word", wordWrap: "break-word" }}>{item.text}</p>;
+    if (item.type === "h3") return <h3 key={key} style={{ fontSize: 17, fontWeight: 700, margin: "28px 0 12px", color: tx, overflowWrap: "break-word" }}>{item.text}</h3>;
+    if (item.type === "bullet") return <div key={key} style={{ paddingLeft: 16, position: "relative", marginBottom: 7, color: mt, fontSize: 14, lineHeight: 1.75, overflowWrap: "break-word" }}><span style={{ position: "absolute", left: 0, color: cyan }}>•</span>{item.text}</div>;
+    if (item.type === "bullet-bold") return <div key={key} style={{ paddingLeft: 16, position: "relative", marginBottom: 7, color: mt, fontSize: 14, lineHeight: 1.75, overflowWrap: "break-word" }}><span style={{ position: "absolute", left: 0, color: cyan }}>•</span><strong style={{ color: tx }}>{item.bold}</strong>{item.text}</div>;
     if (item.type === "numbered") return (
       <div key={key} style={{ display: "flex", gap: 16, margin: "16px 0" }}>
         <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(212,137,106,0.12)", border: "1px solid rgba(212,137,106,0.25)", display: "flex", alignItems: "center", justifyContent: "center", color: accent, fontSize: 14, fontWeight: 700, flexShrink: 0 }}>{item.num}</div>
-        <div><strong style={{ color: tx, fontSize: 15 }}>{item.title}</strong><p style={{ color: mt, fontSize: 14, lineHeight: 1.75, marginTop: 4 }}>{item.text}</p></div>
+        <div><strong style={{ color: tx, fontSize: 15 }}>{item.title}</strong><p style={{ color: mt, fontSize: 14, lineHeight: 1.75, marginTop: 4, overflowWrap: "break-word" }}>{item.text}</p></div>
       </div>
     );
     if (item.type === "insight") return (
-      <div key={key} style={{ background: "rgba(91,184,212,0.08)", border: "1px solid rgba(91,184,212,0.2)", borderRadius: 12, padding: "16px 20px", margin: "20px 0", fontSize: 14, lineHeight: 1.75, color: mt }}>
+      <div key={key} style={{ background: "rgba(91,184,212,0.08)", border: "1px solid rgba(91,184,212,0.2)", borderRadius: 12, padding: "16px 20px", margin: "20px 0", fontSize: 14, lineHeight: 1.75, color: mt, overflowWrap: "break-word" }}>
         <span style={{ color: cyan, fontWeight: 700, fontSize: 12, textTransform: "uppercase", letterSpacing: 1 }}>💡 Key Insight</span>
         <div style={{ marginTop: 8 }}>{item.text}</div>
       </div>
     );
-    if (item.type === "quote") return <div key={key} style={{ borderLeft: "3px solid " + accent, paddingLeft: 20, margin: "20px 0", fontStyle: "italic", color: "rgba(255,255,255,0.6)", fontSize: 14.5, lineHeight: 1.8 }}>{item.text}</div>;
+    if (item.type === "quote") return <div key={key} style={{ borderLeft: "3px solid " + accent, paddingLeft: 20, margin: "20px 0", fontStyle: "italic", color: "rgba(255,255,255,0.6)", fontSize: 14.5, lineHeight: 1.8, overflowWrap: "break-word" }}>{item.text}</div>;
     if (item.type === "table") return (
-      <div key={key} style={{ overflowX: "auto", margin: "16px 0" }}>
+      <div key={key} className="article-table-wrap" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch", margin: "16px 0" }}>
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
           <thead><tr>{item.headers.map(function(h, hi) { return <th key={hi} style={{ padding: "10px 14px", borderBottom: "2px solid " + bd, textAlign: "left", color: cyan, fontWeight: 600, fontSize: 11, textTransform: "uppercase", letterSpacing: 1 }}>{h}</th>; })}</tr></thead>
           <tbody>{item.rows.map(function(r, ri) { return <tr key={ri}>{r.map(function(c, ci) { return <td key={ci} style={{ padding: "10px 14px", borderBottom: "1px solid " + bd, color: ci === r.length - 1 ? accent : mt, fontWeight: ci === r.length - 1 ? 600 : 400 }}>{c}</td>; })}</tr>; })}</tbody>
@@ -136,7 +136,7 @@ export default function ArticlePage() {
   }
 
   return (
-    <div style={{ background: bg, color: tx, minHeight: "100vh", fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}>
+    <div className="article-page-wrap" style={{ background: bg, color: tx, minHeight: "100vh", fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", maxWidth: "100vw", overflowX: "hidden" }}>
       <style>{CSS}</style>
       <nav style={{ position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", background: dk ? "rgba(12,12,19,0.9)" : "rgba(245,243,239,0.9)", borderBottom: "1px solid " + bd, padding: "0 24px" }}>
         <div style={{ maxWidth: 1060, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 58 }}>
@@ -151,7 +151,7 @@ export default function ArticlePage() {
         </div>
       </nav>
       <div style={{ maxWidth: 1060, margin: "0 auto", padding: "48px 20px 80px" }} className="article-layout">
-        <article>
+        <article className="article-content" style={{ minWidth: 0, overflowWrap: "break-word" }}>
           <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>{article.tags.slice(0, 3).map(function(t) { return <Tag key={t} a dk={dk}>{t}</Tag>; })}</div>
           <h1 className="article-title" style={{ fontSize: "clamp(28px,4vw,42px)", fontWeight: 800, lineHeight: 1.15, margin: "0 0 16px" }}>{article.title}</h1>
           <p style={{ color: mt, fontSize: 16, lineHeight: 1.7, margin: "0 0 32px" }}>{article.subtitle}</p>
@@ -159,7 +159,7 @@ export default function ArticlePage() {
           {article.sections.map(function(sec, si) {
             return (
               <div key={si}>
-                <div id={"sec-" + si} style={{ display: "flex", alignItems: "center", gap: 14, margin: "48px 0 20px" }}>
+                <div id={"sec-" + si} className="article-sec-row" style={{ display: "flex", alignItems: "center", gap: 14, margin: "48px 0 20px" }}>
                   <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(91,184,212,0.12)", border: "1px solid rgba(91,184,212,0.25)", display: "flex", alignItems: "center", justifyContent: "center", color: cyan, fontSize: 14, fontWeight: 700, flexShrink: 0 }}>{sec.num}</div>
                   <h2 style={{ fontSize: 22, fontWeight: 700, color: tx, margin: 0 }}>{sec.title}</h2>
                 </div>
