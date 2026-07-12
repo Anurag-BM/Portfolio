@@ -21,8 +21,60 @@ function Tag(props) {
 
 var CSS = `
   * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
   .article-layout { display: grid; grid-template-columns: 1fr 260px; gap: 48px; }
-  @media (max-width: 800px) { .article-layout { grid-template-columns: 1fr; } .article-sidebar { display: none; } }
+  .article-title { font-size: clamp(24px, 5vw, 42px); }
+  .article-subtitle { font-size: 16px; }
+  .article-content-pad { padding: 48px 20px 80px; }
+  .article-sec-title { font-size: 22px; }
+  .article-sec-num { width: 36px; height: 36px; font-size: 14px; }
+  .article-cta-box { padding: 32px 28px; }
+  .article-cta-title { font-size: 20px; }
+  .article-nav { padding: 0 24px; }
+  .article-nav-inner { height: 58px; }
+  .article-tags-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .article-meta { display: flex; gap: 16px; align-items: center; }
+  .article-author { display: flex; align-items: center; gap: 14; }
+  .numbered-item { display: flex; gap: 16px; margin: 16px 0; }
+  .numbered-box { width: 32px; height: 32px; min-width: 32px; }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  @media (max-width: 900px) { 
+    .article-layout { grid-template-columns: 1fr; } 
+    .article-sidebar { display: none; } 
+  }
+  @media (max-width: 768px) {
+    .article-content-pad { padding: 32px 16px 60px !important; }
+    .article-title { font-size: 28px !important; }
+    .article-subtitle { font-size: 14.5px !important; }
+    .article-sec-title { font-size: 19px !important; }
+    .article-cta-box { padding: 24px 20px !important; }
+    .article-cta-title { font-size: 18px !important; }
+    .article-nav { padding: 0 16px !important; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .article-content-pad { padding: 24px 14px 48px !important; }
+    .article-title { font-size: 22px !important; line-height: 1.25 !important; }
+    .article-subtitle { font-size: 13.5px !important; }
+    .article-sec-title { font-size: 17px !important; }
+    .article-sec-num { width: 30px !important; height: 30px !important; font-size: 12px !important; }
+    .article-cta-box { padding: 20px 16px !important; }
+    .article-cta-title { font-size: 16px !important; }
+    .article-nav { padding: 0 12px !important; }
+    .article-nav-inner { height: 50px !important; }
+    .article-meta { gap: 10px !important; font-size: 12px !important; }
+    .article-meta span { font-size: 12px !important; }
+    .article-tags-row { gap: 4px !important; }
+    .article-author { gap: 10px !important; }
+    .article-author img { width: 38px !important; height: 38px !important; }
+    .numbered-item { gap: 12px !important; margin: 12px 0 !important; }
+    .numbered-box { width: 28px !important; height: 28px !important; min-width: 28px !important; font-size: 12px !important; }
+    .stats-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+    .cta-buttons { flex-direction: column !important; align-items: stretch !important; }
+    .cta-buttons a { text-align: center !important; }
+  }
 `;
 
 export default function ArticlePage() {
@@ -92,16 +144,16 @@ export default function ArticlePage() {
             <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg," + accent + ",#8b5e3c)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: 13 }}>A</div>
             <span style={{ fontWeight: 600, fontSize: 15 }}>Anurag B M</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }} className="article-nav-links">
             <span style={{ color: mt, fontSize: 13 }}>~ {article.readTime.toUpperCase()}</span>
             <button onClick={function() { setDk(!dk); }} style={{ background: "transparent", border: "1px solid " + bd, borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: tx, fontSize: 15, display: "flex", alignItems: "center", justifyContent: "center" }}>{dk ? "☀️" : "🌙"}</button>
           </div>
         </div>
       </nav>
-      <div style={{ maxWidth: 1060, margin: "0 auto", padding: "48px 24px 80px" }} className="article-layout">
+      <div style={{ maxWidth: 1060, margin: "0 auto", padding: "48px 20px 80px" }} className="article-layout">
         <article>
           <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>{article.tags.slice(0, 3).map(function(t) { return <Tag key={t} a dk={dk}>{t}</Tag>; })}</div>
-          <h1 style={{ fontSize: "clamp(28px,4vw,42px)", fontWeight: 800, lineHeight: 1.15, margin: "0 0 16px" }}>{article.title}</h1>
+          <h1 className="article-title" style={{ fontSize: "clamp(28px,4vw,42px)", fontWeight: 800, lineHeight: 1.15, margin: "0 0 16px" }}>{article.title}</h1>
           <p style={{ color: mt, fontSize: 16, lineHeight: 1.7, margin: "0 0 32px" }}>{article.subtitle}</p>
           <hr style={{ border: "none", borderTop: "1px solid " + bd, margin: "0 0 8px" }} />
           {article.sections.map(function(sec, si) {
