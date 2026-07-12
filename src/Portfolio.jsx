@@ -140,14 +140,14 @@ export default function Portfolio() {
     <div style={{ background: bg, color: tx, minHeight: "100vh", fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", transition: "background 0.3s, color 0.3s" }}>
       <style>{CSS}</style>
 
-      <nav className="nav-bar" style={{ backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", background: dk ? "rgba(12,12,19,0.85)" : "rgba(245,243,239,0.85)", borderBottom: "1px solid " + bd, padding: "0 16px" }}>
-        <div className="nav-inner">
-          <div className="nav-logo" style={{ fontWeight: 700, fontSize: 18, flexShrink: 0 }}><span style={{ color: accent }}>SDET</span><span style={{ color: mt }}>.</span>Portfolio</div>
-          <div className="nav-right">
+      <nav style={{ position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", background: dk ? "rgba(12,12,19,0.85)" : "rgba(245,243,239,0.85)", borderBottom: "1px solid " + bd, padding: "0 24px" }}>
+        <div style={{ maxWidth: 1060, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 58 }}>
+          <div style={{ fontWeight: 700, fontSize: 18, flexShrink: 0 }}><span style={{ color: accent }}>SDET</span><span style={{ color: mt }}>.</span>Portfolio</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "nowrap", overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}>
             {NAV_ITEMS.map(function(n) {
-              return <button key={n} className="nav-link-btn" onClick={function() { go(n); }} style={{ border: nav === n ? "1px solid " + accent : "1px solid transparent", color: nav === n ? accent : mt }}>{n}</button>;
+              return <button key={n} onClick={function() { go(n); }} style={{ background: "transparent", border: nav === n ? "1px solid " + accent : "1px solid transparent", color: nav === n ? accent : mt, padding: "6px 14px", borderRadius: 22, cursor: "pointer", fontSize: 13.5, fontWeight: 500, transition: "all 0.2s", whiteSpace: "nowrap", flexShrink: 0 }}>{n}</button>;
             })}
-            <button className="nav-theme" onClick={function() { setDk(!dk); }} style={{ border: "1px solid " + bd, color: tx }}>{dk ? "☀️" : "🌙"}</button>
+            <button onClick={function() { setDk(!dk); }} style={{ background: "transparent", border: "1px solid " + bd, borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: tx, fontSize: 15, marginLeft: 8, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s", flexShrink: 0 }}>{dk ? "☀️" : "🌙"}</button>
           </div>
         </div>
       </nav>
