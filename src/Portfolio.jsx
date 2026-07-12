@@ -143,7 +143,7 @@ export default function Portfolio() {
       <nav style={{ position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", background: dk ? "rgba(12,12,19,0.85)" : "rgba(245,243,239,0.85)", borderBottom: "1px solid " + bd, padding: "0 24px" }}>
         <div style={{ maxWidth: 1060, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 58 }}>
           <div style={{ fontWeight: 700, fontSize: 18 }}><span style={{ color: accent }}>SDET</span><span style={{ color: mt }}>.</span>Portfolio</div>
-          <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap" }} className="nav-links">
             {NAV_ITEMS.map(function(n) {
               return <button key={n} onClick={function() { go(n); }} style={{ background: "transparent", border: nav === n ? "1px solid " + accent : "1px solid transparent", color: nav === n ? accent : mt, padding: "6px 16px", borderRadius: 22, cursor: "pointer", fontSize: 13.5, fontWeight: 500, transition: "all 0.2s" }}>{n}</button>;
             })}
@@ -155,16 +155,16 @@ export default function Portfolio() {
       <div style={{ maxWidth: 1060, margin: "0 auto", padding: "0 24px" }}>
 
         {/* HERO */}
-        <section style={{ textAlign: "center", padding: "76px 0 56px" }}>
+        <section style={{ textAlign: "center", padding: "76px 0 56px" }} className="hero-section">
           <div style={{ display: "inline-flex", alignItems: "center", gap: 12, background: card, border: "1px solid " + bd, borderRadius: 40, padding: "8px 20px 8px 8px", marginBottom: 32 }}>
             <div style={{ width: 42, height: 42, borderRadius: "50%", background: "linear-gradient(135deg," + accent + ",#8b5e3c)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 700, fontSize: 16 }}>{PROFILE.name.charAt(0)}</div>
             <div style={{ textAlign: "left" }}><div style={{ fontWeight: 600, fontSize: 14.5, color: tx }}>{PROFILE.name}</div><div style={{ color: mt, fontSize: 12.5 }}>{PROFILE.title}</div></div>
           </div>
-          <h1 style={{ fontSize: "clamp(32px, 5.5vw, 58px)", fontWeight: 700, lineHeight: 1.15, margin: "0 0 20px", letterSpacing: -0.5, fontStyle: "italic" }}>
+          <h1 className="hero-title" style={{ fontSize: "clamp(32px, 5.5vw, 58px)", fontWeight: 700, lineHeight: 1.15, margin: "0 0 20px", letterSpacing: -0.5, fontStyle: "italic" }}>
             {HERO.headlineTop}<br /><span style={{ background: "linear-gradient(90deg, #d4896a, #c87f5a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{HERO.headlineBottom}</span>
           </h1>
-          <p style={{ color: mt, fontSize: 15.5, maxWidth: 540, margin: "0 auto 36px", lineHeight: 1.75 }}>{HERO.tagline}</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 56 }}>
+          <p className="hero-tagline" style={{ color: mt, fontSize: 15.5, maxWidth: 540, margin: "0 auto 36px", lineHeight: 1.75 }}>{HERO.tagline}</p>
+          <div className="hero-buttons" style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 56 }}>
             <button onClick={function() { go("Experience"); }} style={{ background: "#b5714e", color: "#fff", border: "none", padding: "13px 26px", borderRadius: 10, cursor: "pointer", fontWeight: 600, fontSize: 14, display: "flex", alignItems: "center", gap: 8 }}>📋 View My Work</button>
             <button onClick={function() { go("Contact"); }} style={{ background: "transparent", color: tx, border: "1px solid " + bd, padding: "13px 26px", borderRadius: 10, cursor: "pointer", fontWeight: 600, fontSize: 14 }}>Get in Touch →</button>
           </div>
@@ -175,7 +175,7 @@ export default function Portfolio() {
         </section>
 
         {/* ABOUT */}
-        <section id="About" ref={sr("About")} style={{ padding: "80px 0" }}>
+        <section id="About" ref={sr("About")} style={{ padding: "80px 0" }} className="section-pad">
           <div className="about-grid">
             <div>
               <div style={{ width: "100%", aspectRatio: "3/4", borderRadius: 16, overflow: "hidden", border: "1px solid " + bd }}><img src={PROFILE.photo} alt={PROFILE.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} /></div>
@@ -191,9 +191,9 @@ export default function Portfolio() {
         </section>
 
         {/* EXPERIENCE */}
-        <section id="Experience" ref={sr("Experience")} style={{ padding: "80px 0" }}>
+        <section id="Experience" ref={sr("Experience")} style={{ padding: "80px 0" }} className="section-pad">
           <SLabel>Career</SLabel>
-          <h2 style={{ fontSize: 34, fontWeight: 700, margin: "0 0 8px" }}>Work Experience</h2>
+          <h2 className="section-title" style={{ fontSize: 34, fontWeight: 700, margin: "0 0 8px" }}>Work Experience</h2>
           <p style={{ color: mt, marginBottom: 48, fontSize: 15 }}>4.5+ years of ensuring quality across mobile, web, API & AI platforms</p>
           <div style={{ position: "relative", paddingLeft: 28 }}>
             <div style={{ position: "absolute", left: 7, top: 0, bottom: 0, width: 2, background: bd }} />
@@ -201,7 +201,7 @@ export default function Portfolio() {
               return (
                 <div key={i} style={{ position: "relative", marginBottom: 36 }}>
                   <div style={{ position: "absolute", left: -28, top: 10, width: 16, height: 16, borderRadius: "50%", background: i === 0 ? accent : (dk ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)"), border: "3px solid " + bg }} />
-                  <div style={{ background: card, border: "1px solid " + bd, borderRadius: 16, padding: 28, borderTop: i === 0 ? "3px solid " + accent : "1px solid " + bd }}>
+                  <div style={{ background: card, border: "1px solid " + bd, borderRadius: 16, padding: 28, borderTop: i === 0 ? "3px solid " + accent : "1px solid " + bd }} className="card-pad">
                     <div className="exp-header">
                       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                         <div style={{ width: 42, height: 42, borderRadius: 12, background: dk ? "rgba(212,137,106,0.1)" : "rgba(212,137,106,0.15)", border: "1px solid rgba(212,137,106,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🏢</div>
@@ -220,10 +220,10 @@ export default function Portfolio() {
         </section>
 
         {/* ARTICLES */}
-        <section id="Articles" ref={sr("Articles")} style={{ padding: "80px 0" }}>
+        <section id="Articles" ref={sr("Articles")} style={{ padding: "80px 0" }} className="section-pad">
           <div style={{ textAlign: "center" }}>
             <SLabel>Publications</SLabel>
-            <h2 style={{ fontSize: 34, fontWeight: 700, margin: "0 0 8px" }}>Articles</h2>
+            <h2 className="section-title" style={{ fontSize: 34, fontWeight: 700, margin: "0 0 8px" }}>Articles</h2>
             <p style={{ color: mt, marginBottom: 48, fontSize: 15 }}>Sharing what I've learned about testing AI systems</p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -248,20 +248,20 @@ export default function Portfolio() {
         </section>
 
         {/* ACHIEVEMENTS */}
-        <section style={{ padding: "60px 0" }}>
-          <div style={{ textAlign: "center" }}><SLabel>Recognition</SLabel><h2 style={{ fontSize: 34, fontWeight: 700, margin: "0 0 44px" }}>Achievements</h2></div>
+        <section style={{ padding: "60px 0" }} className="section-pad-sm">
+          <div style={{ textAlign: "center" }}><SLabel>Recognition</SLabel><h2 className="section-title" style={{ fontSize: 34, fontWeight: 700, margin: "0 0 44px" }}>Achievements</h2></div>
           <div className="achieve-grid">{ACHIEVEMENTS.map(function(a, i) { return <div key={i} style={{ background: card, border: "1px solid " + bd, borderRadius: 16, padding: 24, textAlign: "center" }}><div style={{ fontSize: 36, marginBottom: 14 }}>{a.icon}</div><h3 style={{ margin: "0 0 8px", fontSize: 14.5, fontWeight: 700 }}>{a.title}</h3><div style={{ color: accent, fontSize: 12, fontWeight: 500 }}>Recognized by {a.from}</div></div>; })}</div>
         </section>
 
         {/* EDUCATION */}
-        <section style={{ padding: "60px 0" }}>
-          <div style={{ textAlign: "center" }}><SLabel>Academics</SLabel><h2 style={{ fontSize: 34, fontWeight: 700, margin: "0 0 8px" }}>Education</h2><p style={{ color: mt, marginBottom: 44, fontSize: 15 }}>My academic journey that built the foundation for my career.</p></div>
+        <section style={{ padding: "60px 0" }} className="section-pad-sm">
+          <div style={{ textAlign: "center" }}><SLabel>Academics</SLabel><h2 className="section-title" style={{ fontSize: 34, fontWeight: 700, margin: "0 0 8px" }}>Education</h2><p style={{ color: mt, marginBottom: 44, fontSize: 15 }}>My academic journey that built the foundation for my career.</p></div>
           <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 700, margin: "0 auto" }}>
             {EDUCATION.map(function(e, i) {
               return (
-                <div key={i} style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
+                <div key={i} className="edu-row" style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, minWidth: 50 }}>
-                    <div style={{ fontSize: 36, fontWeight: 800, color: dk ? "rgba(212,137,106,0.2)" : "rgba(212,137,106,0.3)", lineHeight: 1 }}>{e.num}</div>
+                    <div className="edu-num" style={{ fontSize: 36, fontWeight: 800, color: dk ? "rgba(212,137,106,0.2)" : "rgba(212,137,106,0.3)", lineHeight: 1 }}>{e.num}</div>
                     {i < EDUCATION.length - 1 && <div style={{ width: 2, height: 40, background: bd }} />}
                   </div>
                   <div style={{ background: card, border: "1px solid " + bd, borderRadius: 16, padding: 24, flex: 1 }}>
@@ -279,16 +279,16 @@ export default function Portfolio() {
         </section>
 
         {/* SKILLS */}
-        <section id="Skills" ref={sr("Skills")} style={{ padding: "80px 0" }}>
-          <div style={{ textAlign: "center" }}><SLabel>Expertise</SLabel><h2 style={{ fontSize: 34, fontWeight: 700, margin: "0 0 8px" }}>SDET Skills & Tools</h2><p style={{ color: mt, marginBottom: 48, fontSize: 15 }}>The methodologies, tools, and platforms I use to deliver quality</p></div>
+        <section id="Skills" ref={sr("Skills")} style={{ padding: "80px 0" }} className="section-pad">
+          <div style={{ textAlign: "center" }}><SLabel>Expertise</SLabel><h2 className="section-title" style={{ fontSize: 34, fontWeight: 700, margin: "0 0 8px" }}>SDET Skills & Tools</h2><p style={{ color: mt, marginBottom: 48, fontSize: 15 }}>The methodologies, tools, and platforms I use to deliver quality</p></div>
           <div className="skills-grid">{SKILLS.map(function(s, i) { return <div key={i} style={{ background: card, border: "1px solid " + bd, borderRadius: 16, padding: 24 }}><div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}><div style={{ width: 38, height: 38, borderRadius: 10, background: dk ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)", border: "1px solid " + bd, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>{s.icon}</div><h3 style={{ margin: 0, fontSize: 15, fontWeight: 700 }}>{s.title}</h3></div><div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>{s.items.map(function(item) { return <Tag key={item} dk={dk}>{item}</Tag>; })}</div></div>; })}</div>
         </section>
 
         {/* CONTACT */}
-        <section id="Contact" ref={sr("Contact")} style={{ padding: "80px 0 60px" }}>
+        <section id="Contact" ref={sr("Contact")} style={{ padding: "80px 0 60px" }} className="section-pad">
           <div className="contact-grid">
             <div>
-              <SLabel>Contact</SLabel><h2 style={{ fontSize: 30, fontWeight: 700, margin: "0 0 16px" }}>Let's work together</h2>
+              <SLabel>Contact</SLabel><h2 className="section-title" style={{ fontSize: 30, fontWeight: 700, margin: "0 0 16px" }}>Let's work together</h2>
               <p style={{ color: mt, lineHeight: 1.75, fontSize: 14.5, marginBottom: 28 }}>Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
               <a href={"mailto:" + PROFILE.email} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: accent, color: "#fff", padding: "13px 26px", borderRadius: 10, textDecoration: "none", fontWeight: 600, fontSize: 14 }}>Say Hello →</a>
             </div>
