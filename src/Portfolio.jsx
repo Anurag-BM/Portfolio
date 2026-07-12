@@ -141,13 +141,16 @@ export default function Portfolio() {
       <style>{CSS}</style>
 
       <nav style={{ position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", background: dk ? "rgba(12,12,19,0.85)" : "rgba(245,243,239,0.85)", borderBottom: "1px solid " + bd, padding: "0 24px" }}>
-        <div style={{ maxWidth: 1060, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 58 }}>
-          <div style={{ fontWeight: 700, fontSize: 18 }}><span style={{ color: accent }}>SDET</span><span style={{ color: mt }}>.</span>Portfolio</div>
-          <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap" }} className="nav-links">
+        <div className="nav-wrapper" style={{ maxWidth: 1060, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 58 }}>
+          <div className="nav-top-row">
+            <div className="nav-logo" style={{ fontWeight: 700, fontSize: 18 }}><span style={{ color: accent }}>SDET</span><span style={{ color: mt }}>.</span>Portfolio</div>
+            <button className="nav-theme-btn nav-theme-mobile" onClick={function() { setDk(!dk); }} style={{ background: "transparent", border: "1px solid " + bd, borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: tx, fontSize: 15, display: "none", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>{dk ? "☀️" : "🌙"}</button>
+          </div>
+          <div className="nav-links">
             {NAV_ITEMS.map(function(n) {
               return <button key={n} className="nav-link-btn" onClick={function() { go(n); }} style={{ background: "transparent", border: nav === n ? "1px solid " + accent : "1px solid transparent", color: nav === n ? accent : mt, padding: "6px 16px", borderRadius: 22, cursor: "pointer", fontSize: 13.5, fontWeight: 500, transition: "all 0.2s" }}>{n}</button>;
             })}
-            <button onClick={function() { setDk(!dk); }} style={{ background: "transparent", border: "1px solid " + bd, borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: tx, fontSize: 15, marginLeft: 8, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>{dk ? "☀️" : "🌙"}</button>
+            <button className="nav-theme-btn nav-theme-desktop" onClick={function() { setDk(!dk); }} style={{ background: "transparent", border: "1px solid " + bd, borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: tx, fontSize: 15, marginLeft: 8, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>{dk ? "☀️" : "🌙"}</button>
           </div>
         </div>
       </nav>
