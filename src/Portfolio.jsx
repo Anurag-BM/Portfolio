@@ -145,14 +145,14 @@ export default function Portfolio() {
           <div style={{ fontWeight: 700, fontSize: 18 }}><span style={{ color: accent }}>SDET</span><span style={{ color: mt }}>.</span>Portfolio</div>
           <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap" }} className="nav-links">
             {NAV_ITEMS.map(function(n) {
-              return <button key={n} onClick={function() { go(n); }} style={{ background: "transparent", border: nav === n ? "1px solid " + accent : "1px solid transparent", color: nav === n ? accent : mt, padding: "6px 16px", borderRadius: 22, cursor: "pointer", fontSize: 13.5, fontWeight: 500, transition: "all 0.2s" }}>{n}</button>;
+              return <button key={n} className="nav-link-btn" onClick={function() { go(n); }} style={{ background: "transparent", border: nav === n ? "1px solid " + accent : "1px solid transparent", color: nav === n ? accent : mt, padding: "6px 16px", borderRadius: 22, cursor: "pointer", fontSize: 13.5, fontWeight: 500, transition: "all 0.2s" }}>{n}</button>;
             })}
             <button onClick={function() { setDk(!dk); }} style={{ background: "transparent", border: "1px solid " + bd, borderRadius: "50%", width: 36, height: 36, cursor: "pointer", color: tx, fontSize: 15, marginLeft: 8, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>{dk ? "☀️" : "🌙"}</button>
           </div>
         </div>
       </nav>
 
-      <div style={{ maxWidth: 1060, margin: "0 auto", padding: "0 24px" }}>
+      <div className="main-container" style={{ maxWidth: 1060, margin: "0 auto", padding: "0 24px" }}>
 
         {/* HERO */}
         <section style={{ textAlign: "center", padding: "76px 0 56px" }} className="hero-section">
